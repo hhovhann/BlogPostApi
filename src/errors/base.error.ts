@@ -1,4 +1,4 @@
-import {HttpStatusCode} from "../enum/http.statuses";
+import {HttpStatusCode} from "../enums/http.statuses";
 
 class BaseError extends Error {
     public readonly name: string

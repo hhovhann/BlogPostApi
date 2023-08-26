@@ -1,6 +1,7 @@
 import {IUser} from "../../interfaces/user/user.interface";
 import User from "../../models/user/user.model";
 import APIError from "../../errors/api.error";
+import {HttpStatusCode} from "../../enums/http.statuses";
 
 const bcrypt = require('bcrypt');
 
@@ -12,20 +13,20 @@ export class UserService {
     public async register(user: IUser): Promise<IUser> {
         // Validate username, email, password, and role fields
         if (!user.username) {
-            throw new APIError('mandatory_field', 404, true, 'Username is mandatory');
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Username is mandatory');
         }
 
         if (!user.email) {
-            throw new APIError('mandatory_field', 404, true, 'Email is mandatory');
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Email is mandatory');
         }
 
         // Validate title and content fields
         if (!user.password) {
-            throw new APIError('mandatory_field', 404, true, 'Password is mandatory');
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Password is mandatory');
         }
 
         if (!user.role) {
-            throw new APIError('mandatory_field', 404, true, 'Role is mandatory');
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Role is mandatory');
         }
 
         const password = await bcrypt.hash(user.password, 10);

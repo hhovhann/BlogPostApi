@@ -1,6 +1,7 @@
 import {IPost} from "../../interfaces/post/post.interface";
 import Post from "../../models/post/post.model";
 import APIError from "../../errors/api.error";
+import {HttpStatusCode} from "../../enums/http.statuses";
 
 export class PostService {
 
@@ -43,11 +44,11 @@ export class PostService {
     public add(post: IPost): Promise<IPost> {
         // Validate title and content fields
         if (!post.title) {
-            throw new APIError('mandatory_field', 404, true, 'Title is mandatory');
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Title is mandatory');
         }
 
         if (!post.content) {
-            throw new APIError('mandatory_field', 404, true, 'Content is mandatory');
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Content is mandatory');
         }
 
         const newPost = new Post(post);
@@ -62,7 +63,7 @@ export class PostService {
         const deletePost = await Post.findByIdAndDelete(id).exec();
 
         if (!deletePost) {
-            throw new APIError('not_found', 404, true, `Post with id '${id} not found`);
+            throw new APIError('NOT FOUND', HttpStatusCode.NOT_FOUND, true, `Post with id ${id} not found`);
         }
 
         return deletePost;
@@ -75,8 +76,7 @@ export class PostService {
         const updatedPost = await Post.findByIdAndUpdate(id, post).exec();
 
         if (!updatedPost) {
-            throw new APIError('not_found', 404, true, `Post with id '${id} not found`);
-
+            throw new APIError('NOT FOUND', HttpStatusCode.NOT_FOUND, true, `Post with id ${id} not found`);
         }
 
         return updatedPost;

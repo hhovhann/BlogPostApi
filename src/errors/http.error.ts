@@ -1,4 +1,4 @@
-import {HttpStatusCode} from "../enum/http.statuses";
+import {HttpStatusCode} from "../enums/http.statuses";
 import BaseError from "./base.error";
 
 class HTTP400Error extends BaseError {
