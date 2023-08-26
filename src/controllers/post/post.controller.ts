@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response, Router} from "express";
-
 import {PostService} from "../../services/post/post.service";
 
 export class PostController {

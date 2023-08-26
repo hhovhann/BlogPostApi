@@ -176,6 +176,8 @@ Blog Post API is a post management demonstration application with CRUD functiona
 ### References
 
 - [JSON Web Tokens](https://jwt.io/)
+- [Authenticate REST APIs in Node JS using JWT](https://medium.com/@prashantramnyc/authenticate-rest-apis-in-node-js-using-jwt-json-web-tokens-f0e97669aad3)
+- [How to Build a Node.js Error-handling System](https://www.toptal.com/nodejs/node-js-error-handling)
 - [Jest](https://jestjs.io/docs/getting-started)
 - [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [Mongoose](https://www.npmjs.com/package/mongoose)

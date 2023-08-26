@@ -1,6 +1,6 @@
 import {IPost} from "../../interfaces/post/post.interface";
 import Post from "../../models/post/post.model";
-import ApiError from "../../errors/api.error";
+import APIError from "../../errors/api.error";
 
 export class PostService {
 
@@ -43,11 +43,11 @@ export class PostService {
     public add(post: IPost): Promise<IPost> {
         // Validate title and content fields
         if (!post.title) {
-            throw new ApiError('mandatory_field', 404, true, 'Title is mandatory');
+            throw new APIError('mandatory_field', 404, true, 'Title is mandatory');
         }
 
         if (!post.content) {
-            throw new ApiError('mandatory_field', 404, true, 'Content is mandatory');
+            throw new APIError('mandatory_field', 404, true, 'Content is mandatory');
         }
 
         const newPost = new Post(post);
@@ -62,7 +62,7 @@ export class PostService {
         const deletePost = await Post.findByIdAndDelete(id).exec();
 
         if (!deletePost) {
-            throw new ApiError('not_found', 404, true, `Post with id '${id} not found`);
+            throw new APIError('not_found', 404, true, `Post with id '${id} not found`);
         }
 
         return deletePost;
@@ -75,7 +75,7 @@ export class PostService {
         const updatedPost = await Post.findByIdAndUpdate(id, post).exec();
 
         if (!updatedPost) {
-            throw new ApiError('not_found', 404, true, `Post with id '${id} not found`);
+            throw new APIError('not_found', 404, true, `Post with id '${id} not found`);
 
         }
 
