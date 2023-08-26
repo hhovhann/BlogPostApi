@@ -11,12 +11,12 @@ Blog Post API is a post management demonstration application with CRUD functiona
 ### How to run application locally
 
 - Install packages: `npm install` (be sure that in your env have installed the [Node JS](https://nodejs.org/en/docs/guides/getting-started-guide))
+- Run Mongo Database Container: `docker-compose up` (be sure that you have) installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your system)
 - Run Node Application: `npm start`
-- Run Mongo Database Container: `docker-compose up` (be sure that you have
-  installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your system)
 
 ### How to run application tests locally
-
+- Install packages: `npm install` (be sure that in your env have installed the [Node JS](https://nodejs.org/en/docs/guides/getting-started-guide))
+- Run Mongo Database Container: `docker-compose up` (be sure that you have) installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your system)
 - Run all tests `npm test`
 
 ### Endpoints
@@ -157,9 +157,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
 
 ### Nice to have
 
-- Pagination and limit and sorting for find all service method -> installed (
-  mongoose-paginate-v2)[https://www.npmjs.com/package/mongoose-paginate-v2] which could be improved for future usages
-- Integration, Unit Tests - could be added more tests as well ass could be used testcontainers for end to end testing
-  with the real db simulators
+- Pagination and limit and sorting for find all service method -> could be improved for future usages (mongoose-paginate-v2)[https://www.npmjs.com/package/mongoose-paginate-v2]
+- Integration, Unit Tests - could be added more tests as well ass could be used testcontainers, now we are using docker container
 - JWT user authentication and authorization mechanism - integration could be done in the later versions
 - Caching layer to increase the performance find all - integration could be done in the later versions

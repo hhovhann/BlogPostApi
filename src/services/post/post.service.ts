@@ -42,8 +42,12 @@ export class PostService {
      * **/
     public add(post: IPost): Promise<IPost> {
         // Validate title and content fields
-        if (!post.title || !post.content) {
-            throw new HttpError('Title and content are mandatory', 404);
+        if (!post.title) {
+            throw new HttpError('Title is mandatory', 404);
+        }
+
+        if (!post.content) {
+            throw new HttpError('Content is mandatory', 404);
         }
 
         const newPost = new Post(post);
