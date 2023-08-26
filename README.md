@@ -163,8 +163,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
             ]
           ```
 - Search a blog post by title or content
-    - GET http://localhost:3003/api/v1/posts/search/post title updated OR http://localhost:3003/posts/search/content
-      Updated
+    - GET http://localhost:3003/api/v1/posts/search/post title updated OR http://localhost:3003/posts/search/Content updated
         - Response Body
           ```
           [
