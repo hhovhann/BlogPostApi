@@ -145,6 +145,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
 ### References
 
 - [JSON Web Tokens](https://jwt.io/)
+- [Jest](https://jestjs.io/docs/getting-started)
 - [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [Mongoose](https://www.npmjs.com/package/mongoose)
 - [Mongoose Paginate V2](https://www.npmjs.com/package/mongoose-paginate-v2)
