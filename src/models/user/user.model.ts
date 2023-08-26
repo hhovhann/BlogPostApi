@@ -5,7 +5,7 @@ export const UserSchema = new Schema(
         username: {type: String, required: [true, "Username is required"]},
         email: {type: String, required: [true, "Email is required"]},
         password: {type: String, required: [true, "Password is required"]},
-        role: { type: String, enum: ['Member', 'Client', 'Owner', 'Admin'], default: 'Member'},
+        role: { type: String, enum: ['USER', 'ADMIN'], default: 'USER'},
     },
     {versionKey: false}
 );

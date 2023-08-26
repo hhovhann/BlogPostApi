@@ -36,19 +36,35 @@ Blog Post API is a post management demonstration application with CRUD functiona
                     "username": "Hayk Hovhannisyanm",
                     "password": "asdf@2023",
                     "email" :"haik.hovhanisyan@gmail.com",
-                    "role": "Admin"
+                    "role": "ADMIN"
                 }
             ```
         - Response Body
-              ```
-                {
-                    "username": "Hayk Hovhannisyanm",
-                    "email": "haik.hovhanisyan@gmail.com",
-                    "password": "$2b$10$Lxm5z.fRgo5hdKt8GwvWi..dQ4erBiArxKkckmKBjlWhU44aZjbBq",
-                    "role": "Admin",
-                    "id": "64e9caad35da4570341ddf0c"
-                }
-              ```
+          ```
+          {
+          "username": "Hayk Hovhannisyanm",
+          "email": "haik.hovhanisyan@gmail.com",
+          "password": "$2b$10$Lxm5z.fRgo5hdKt8GwvWi..dQ4erBiArxKkckmKBjlWhU44aZjbBq",
+          "role": "ADMIN",
+          "id": "64e9caad35da4570341ddf0c"
+          }
+          ```
+- Login with a new user post
+    - POST http://localhost:3003/api/v1/login
+        - Request Body
+        ```
+            {
+                "username": "Hayk Hovhannisyan",
+                "password": "asdf@2023"
+            }
+        ```
+        - Response Body
+        ```
+            {
+                "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSGF5ayBIb3ZoYW5uaXN5YW4iLCJpYXQiOjE2OTMwNzczNjAsImV4cCI6MTY5MzA3ODI2MH0.Qp-Mnh288XyEIAiNBEnitu-j7mw_Q7BjjiRoO_Gw3Dc",
+                "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSGF5ayBIb3ZoYW5uaXN5YW4iLCJpYXQiOjE2OTMwNzczNjAsImV4cCI6MTY5MzA3ODU2MH0.pLNRbT1AkydBvBmYgFnC630ignj1xbS3HHJ8Mpq46b8"
+            }
+        ```
 
 #### Post
 
@@ -147,7 +163,8 @@ Blog Post API is a post management demonstration application with CRUD functiona
             ]
           ```
 - Search a blog post by title or content
-    - GET http://localhost:3003/api/v1/posts/search/post title updated OR http://localhost:3003/posts/search/content Updated
+    - GET http://localhost:3003/api/v1/posts/search/post title updated OR http://localhost:3003/posts/search/content
+      Updated
         - Response Body
           ```
           [
