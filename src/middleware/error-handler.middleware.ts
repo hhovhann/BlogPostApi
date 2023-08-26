@@ -1,12 +1,7 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express";
+import BaseError from "../errors/base.error";
 
-import { GenericError } from "../interfaces/error/generic-error.interface";
-
-export function handleErrors(
-  err: GenericError,
-  _: Request,
-  res: Response
-) {
-  const { status = 500, message } = err;
-  return res.status(status).send(message);
+export function handleErrors(baseError: BaseError, request: Request, response: Response) {
+    const {status = 500, message} = baseError;
+    return response.status(status).send(message);
 }

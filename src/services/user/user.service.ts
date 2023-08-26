@@ -1,5 +1,6 @@
 import {IUser} from "../../interfaces/user/user.interface";
 import User from "../../models/user/user.model";
+import ApiError from "../../errors/api.error";
 
 const bcrypt = require('bcrypt');
 
@@ -9,6 +10,24 @@ export class UserService {
      * Register User
      * **/
     public async register(user: IUser): Promise<IUser> {
+        // Validate username, email, password, and role fields
+        if (!user.username) {
+            throw new ApiError('mandatory_field', 404, true, 'Username is mandatory');
+        }
+
+        if (!user.email) {
+            throw new ApiError('mandatory_field', 404, true, 'Email is mandatory');
+        }
+
+        // Validate title and content fields
+        if (!user.password) {
+            throw new ApiError('mandatory_field', 404, true, 'Password is mandatory');
+        }
+
+        if (!user.role) {
+            throw new ApiError('mandatory_field', 404, true, 'Role is mandatory');
+        }
+
         const password = await bcrypt.hash(user.password, 10);
         const newUser = new User({
             username: user.username,

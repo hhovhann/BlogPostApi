@@ -1,7 +1,10 @@
-import { GenericError } from "../interfaces/error/generic-error.interface";
+import {HttpStatusCode} from "../enum/http.statuses";
+import BaseError from "./base.error";
 
-export class HttpError extends Error implements GenericError {
-  constructor(message: string, public status: number) {
-    super(message);
-  }
+class HTTP400Error extends BaseError {
+    constructor(message = 'bad request') {
+        super('NOT FOUND', HttpStatusCode.BAD_REQUEST, true, message);
+    }
 }
+
+export default HTTP400Error;

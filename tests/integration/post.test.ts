@@ -4,19 +4,19 @@ import Post from "../../src/models/post/post.model";
 const POST_ROUTE = '/api/v1/posts'
 
 describe('#1 Return ERROR when title or content are missing', () => {
-    // test('should throw error when there is no title', async () => {
-    //     const data = {"content": "Post Content", "author": "Postianus Contentus"};
-    //     const response = await request(app).post(POST_ROUTE).send(data)
-    //     expect(response.status).toBe(404)
-    //     expect(response.body.message).toBe('Title is mandatory')
-    // })
-    //
-    // test('should throw error when there is no content', async () => {
-    //     const data = {"title": "Post Title", "author": "Postianus Contentus"};
-    //     const response = await request(app).post(POST_ROUTE).send(data)
-    //     expect(response.status).toBe(404)
-    //     expect(response.body.message).toBe('Title is mandatory')
-    // })
+    test('should throw error when there is no title', async () => {
+        const data = {"content": "Post Content", "author": "Postianus Contentus"};
+        const response = await request(app).post(POST_ROUTE).send(data)
+        expect(response.status).toBe(404)
+        expect(response.text).toContain('Title is mandatory')
+    })
+
+    test('should throw error when there is no content', async () => {
+        const data = {"title": "Post Title", "author": "Postianus Contentus"};
+        const response = await request(app).post(POST_ROUTE).send(data)
+        expect(response.status).toBe(404)
+        expect(response.text).toContain('Content is mandatory')
+    })
 })
 describe('#2 Return SUCCESS, when title and content are valid', () => {
     let postId ='';
