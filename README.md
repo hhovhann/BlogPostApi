@@ -42,7 +42,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
             }
             ```
 - Update an existing blog post
-    - POST http://localhost:3003/posts/64e8f9487b164140e9d6a82b
+    - POST http://localhost:3003/api/v1/posts/64e8f9487b164140e9d6a82b
         - Request Body
             ```
             {
@@ -62,7 +62,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
           }
           ```
 - Retrieve a single blog post by its ID
-    - GET http://localhost:3003/posts/64e8f9487b164140e9d6a82b
+    - GET http://localhost:3003/api/v1/posts/64e8f9487b164140e9d6a82b
         - Response Body
             ```
             {
@@ -74,7 +74,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
             }
           ```
 - Retrieve all blog posts
-    - GET http://localhost:3003/posts
+    - GET http://localhost:3003/api/v1/posts
         - Response Body
           ```
           [
@@ -95,7 +95,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
           ]
           ```
 - Retrieve all with limit and page
-    - GET http://localhost:3003/posts?page=1&limit=2
+    - GET http://localhost:3003/api/v1/posts?page=1&limit=2
         - Response Body
           ```
             [
@@ -116,7 +116,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
             ]
           ```
 - Search a blog post by title or content
-    - GET http://localhost:3003/posts/search/post title updated OR http://localhost:3003/posts/search/content Updated
+    - GET http://localhost:3003/api/v1/posts/search/post title updated OR http://localhost:3003/posts/search/content Updated
         - Response Body
           ```
           [
@@ -130,7 +130,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
           ]
           ```
 - Delete a blog post
-    - DELETE http://localhost:3003/posts/64e8f9487b164140e9d6a82b
+    - DELETE http://localhost:3003/api/v1/posts/64e8f9487b164140e9d6a82b
     - Response Body
       ```
        {

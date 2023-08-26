@@ -38,7 +38,7 @@ class App {
 
     private setControllers() {
         const postController = new PostController(new PostService());
-        this.app.use("/posts", postController.router);
+        this.app.use("/api/v1/posts", postController.router);
     }
 
     private setErrorHandlingMiddleware() {
