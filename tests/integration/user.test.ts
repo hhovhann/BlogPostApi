@@ -53,6 +53,8 @@ describe('#1 Return ERROR when username, email, password or role are missing', (
 describe('#2 Return SUCCESS, when username, email, password or role are valid', () => {
     let userId = '';
     let username = '';
+    let refreshToken = '';
+    let renewedRefreshToken = '';
     beforeAll(() => {
         return User.deleteMany();
     });
@@ -76,14 +78,30 @@ describe('#2 Return SUCCESS, when username, email, password or role are valid', 
         expect(response.body).toHaveProperty('email')
         expect(response.body).toHaveProperty('password')
         expect(response.body).toHaveProperty('role')
-    }, 10000)
+    })
 
     test('should login the user with valid username, password', async () => {
         const payload = { "username": username, "password": "asdf@2023"};
         const response = await request(app).post(USER_ROUTE.concat('/login')).send(payload)
-
+        refreshToken = response.body.refreshToken
         expect(response.status).toBe(HttpStatusCode.OK)
         expect(response.body).toHaveProperty('accessToken')
         expect(response.body).toHaveProperty('refreshToken')
-    }, 10000)
+    })
+
+    test('should refresh token with valid username and token', async () => {
+        const payload = { "username": username, "token": refreshToken};
+        const response = await request(app).post(USER_ROUTE.concat('/refreshToken')).send(payload)
+        renewedRefreshToken = response.body.refreshToken
+        expect(response.status).toBe(HttpStatusCode.OK)
+        expect(response.body).toHaveProperty('accessToken')
+        expect(response.body).toHaveProperty('refreshToken')
+    })
+
+    test('should delete refresh token from list when logged out', async () => {
+        const payload = {"token": renewedRefreshToken};
+        const response = await request(app).delete(USER_ROUTE.concat('/logout')).send(payload)
+
+        expect(response.status).toBe(HttpStatusCode.OK)
+    })
 })

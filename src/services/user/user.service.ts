@@ -5,6 +5,7 @@ import {HttpStatusCode} from "../../enums/http.statuses";
 import jwt from 'jsonwebtoken';
 
 const bcrypt = require('bcrypt');
+let refreshTokens = [] as string[]; // can use Redis cash for this reason
 
 export class UserService {
 
@@ -54,19 +55,53 @@ export class UserService {
 
         const user = await User.findOne({username: username}).exec();
 
-        //check to see if the user exists in the list of registered users
+        // Checks to see if the user exists in the list of registered users
         if (user == null) {
             throw new APIError('NOT FOUND', HttpStatusCode.NOT_FOUND, true, `User by provided username: ${username} not found.`);
         }
 
         if (await bcrypt.compare(password, user.password)) {
-            return {
-                accessToken: this.generateAccessToken({user: username}),
-                refreshToken: this.generateRefreshToken({user: username})
-            };
+            // Generates new accessToken and refreshTokens
+            const accessToken = this.generateAccessToken({user: username})
+            const refreshToken = this.generateRefreshToken({user: username})
+            // Add refresh token to the local storage(possibly redis cache in next releases)
+            refreshTokens.push(refreshToken);
+
+            return {accessToken: accessToken, refreshToken: refreshToken};
         } else {
             throw new APIError('UNAUTHORIZED', HttpStatusCode.UNAUTHORIZED, true, `Password Incorrect.`);
         }
+    }
+
+    /**
+     * Retrieves new Refresh token after the Access Token expires
+     */
+    public async refreshToken(username: string, token: string): Promise<any> {
+        if (!refreshTokens.includes(token)) {
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Refresh Token Invalid');
+        }
+
+        refreshTokens = refreshTokens.filter((current) => current != token) // remove the old refreshToken from the refreshTokens list
+
+        // Generate new accessToken and refreshTokens
+        const accessToken = this.generateAccessToken({user: username})
+        const refreshToken = this.generateRefreshToken({user: username})
+        // Add refresh token to the local storage(possibly redis cache in next releases)
+        refreshTokens.push(refreshToken);
+        return {
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        };
+    }
+
+    /**
+     * Retires refresh tokens on logout
+     */
+    public async logout(token: string): Promise<void> {
+        if (!refreshTokens.includes(token)) {
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Refresh Token Invalid');
+        }
+        refreshTokens = refreshTokens.filter((current) => current != token)  // remove the old refreshToken from the refreshTokens list
     }
 
     /***
