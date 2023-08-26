@@ -10,19 +10,50 @@ Blog Post API is a post management demonstration application with CRUD functiona
 
 ### How to run application locally
 
-- Install packages: `npm install` (be sure that in your env have installed the [Node JS](https://nodejs.org/en/docs/guides/getting-started-guide))
-- Run Mongo Database Container: `docker-compose up` (be sure that you have) installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your system)
+- Install packages: `npm install` (be sure that in your env have installed
+  the [Node JS](https://nodejs.org/en/docs/guides/getting-started-guide))
+- Run Mongo Database Container: `docker-compose up` (be sure that you have)
+  installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your system)
 - Run Node Application: `npm start`
 
 ### How to run application tests locally
-- Install packages: `npm install` (be sure that in your env have installed the [Node JS](https://nodejs.org/en/docs/guides/getting-started-guide))
-- Run Mongo Database Container: `docker-compose up` (be sure that you have) installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your system)
+
+- Install packages: `npm install` (be sure that in your env have installed
+  the [Node JS](https://nodejs.org/en/docs/guides/getting-started-guide))
+- Run Mongo Database Container: `docker-compose up` (be sure that you have)
+  installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your system)
 - Run all tests `npm test`
 
 ### Endpoints
 
+#### User
+
+- Create a new user post
+    - POST http://localhost:3003/api/v1/user
+        - Request Body
+            ```
+                {
+                    "username": "Hayk Hovhannisyanm",
+                    "password": "asdf@2023",
+                    "email" :"haik.hovhanisyan@gmail.com",
+                    "role": "Admin"
+                }
+            ```
+        - Response Body
+              ```
+                {
+                    "username": "Hayk Hovhannisyanm",
+                    "email": "haik.hovhanisyan@gmail.com",
+                    "password": "$2b$10$Lxm5z.fRgo5hdKt8GwvWi..dQ4erBiArxKkckmKBjlWhU44aZjbBq",
+                    "role": "Admin",
+                    "id": "64e9caad35da4570341ddf0c"
+                }
+              ```
+
+#### Post
+
 - Create a new blog post
-    - POST http://localhost:3003/posts
+    - POST http://localhost:3003/api/v1/posts
         - Request Body
             ```
             {
@@ -155,10 +186,11 @@ Blog Post API is a post management demonstration application with CRUD functiona
 - [Docker and MongoDB](https://www.mongodb.com/compatibility/docker)
 - [Express web framework for Node.js](https://expressjs.com/)
 
-
 ### Nice to have
 
-- Pagination and limit and sorting for find all service method -> could be improved for future usages (mongoose-paginate-v2)[https://www.npmjs.com/package/mongoose-paginate-v2]
-- Integration, Unit Tests - could be added more tests as well ass could be used testcontainers, now we are using docker container
+- Pagination and limit and sorting for find all service method -> could be improved for future usages (
+  mongoose-paginate-v2)[https://www.npmjs.com/package/mongoose-paginate-v2]
+- Integration, Unit Tests - could be added more tests as well ass could be used testcontainers, now we are using docker
+  container
 - JWT user authentication and authorization mechanism - integration could be done in the later versions
 - Caching layer to increase the performance find all - integration could be done in the later versions

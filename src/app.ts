@@ -1,6 +1,8 @@
 import {MONGO} from "./constants/post/post.constants";
 import {PostController} from "./controllers/post/post.controller";
+import {UserController} from "./controllers/user/user.controller";
 import {PostService} from "./services/post/post.service";
+import {UserService} from "./services/user/user.service";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
@@ -37,8 +39,8 @@ class App {
     }
 
     private setControllers() {
-        const postController = new PostController(new PostService());
-        this.app.use("/api/v1/posts", postController.router);
+        this.app.use("/api/v1/posts", new PostController(new PostService()).router);
+        this.app.use("/api/v1/users", new UserController(new UserService()).router);
     }
 
     private setErrorHandlingMiddleware() {
