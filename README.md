@@ -70,6 +70,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
 
 - Create a new blog post
     - POST http://localhost:3003/api/v1/posts
+    - HEADERS: Authorization: Bearer {access_token}
         - Request Body
             ```
             {
@@ -90,6 +91,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
             ```
 - Update an existing blog post
     - POST http://localhost:3003/api/v1/posts/64e8f9487b164140e9d6a82b
+    - HEADERS: Authorization: Bearer {access_token}
         - Request Body
             ```
             {
@@ -178,6 +180,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
           ```
 - Delete a blog post
     - DELETE http://localhost:3003/api/v1/posts/64e8f9487b164140e9d6a82b
+    - HEADERS: Authorization: Bearer {access_token}
     - Response Body
       ```
        {
@@ -192,9 +195,6 @@ Blog Post API is a post management demonstration application with CRUD functiona
 ### References
 
 - [JSON Web Tokens](https://jwt.io/)
-- [Authenticate REST APIs in Node JS using JWT](https://medium.com/@prashantramnyc/authenticate-rest-apis-in-node-js-using-jwt-json-web-tokens-f0e97669aad3)
-- [How to Build a Node.js Error-handling System](https://www.toptal.com/nodejs/node-js-error-handling)
-- [Jest](https://jestjs.io/docs/getting-started)
 - [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [Mongoose](https://www.npmjs.com/package/mongoose)
 - [Mongoose Paginate V2](https://www.npmjs.com/package/mongoose-paginate-v2)
@@ -206,9 +206,7 @@ Blog Post API is a post management demonstration application with CRUD functiona
 
 ### Nice to have
 
-- Pagination and limit and sorting for find all service method -> could be improved for future usages (
-  mongoose-paginate-v2)[https://www.npmjs.com/package/mongoose-paginate-v2]
-- Integration, Unit Tests - could be added more tests as well ass could be used testcontainers, now we are using docker
-  container
-- JWT user authentication and authorization mechanism - integration could be done in the later versions
-- Caching layer to increase the performance find all - integration could be done in the later versions
+- Pagination and limit and sorting for find all service method: could use (mongoose-paginate-v2)[https://www.npmjs.com/package/mongoose-paginate-v2]
+- Tests: could be added more tests with nodejs testcontainers
+- Caching: Increase the performance find all, add token storage
+- Full support for environments with variables

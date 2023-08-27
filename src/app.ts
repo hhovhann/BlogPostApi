@@ -39,7 +39,7 @@ class App {
     }
 
     private setControllers() {
-        this.app.use("/api/v1/posts", new PostController(new PostService()).router);
+        this.app.use("/api/v1/posts", new PostController(new PostService(), new UserService()).router);
         this.app.use("/api/v1/users", new UserController(new UserService()).router);
     }
 

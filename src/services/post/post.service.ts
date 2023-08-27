@@ -59,9 +59,7 @@ export class PostService {
      * Delete the existing post by his Identifier
      * **/
     public async delete(id: string) {
-        // const deletePost: Promise<IPost> =
-        const deletePost = await Post.findByIdAndDelete(id).exec();
-
+        let deletePost = await Post.findByIdAndDelete(id).exec();
         if (!deletePost) {
             throw new APIError('NOT FOUND', HttpStatusCode.NOT_FOUND, true, `Post with id ${id} not found`);
         }
@@ -74,7 +72,6 @@ export class PostService {
      * **/
     public async update(id: string, post: IPost) {
         const updatedPost = await Post.findByIdAndUpdate(id, post).exec();
-
         if (!updatedPost) {
             throw new APIError('NOT FOUND', HttpStatusCode.NOT_FOUND, true, `Post with id ${id} not found`);
         }

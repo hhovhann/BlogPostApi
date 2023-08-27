@@ -3,6 +3,7 @@ import User from "../../models/user/user.model";
 import APIError from "../../errors/api.error";
 import {HttpStatusCode} from "../../enums/http.statuses";
 import jwt from 'jsonwebtoken';
+import {NextFunction, Request, Response} from "express";
 
 const bcrypt = require('bcrypt');
 let refreshTokens = [] as string[]; // can use Redis cash for this reason
@@ -104,7 +105,31 @@ export class UserService {
         refreshTokens = refreshTokens.filter((current) => current != token)  // remove the old refreshToken from the refreshTokens list
     }
 
-    /***
+    /**
+     * Validate authorization token
+     */
+    public validateToken(request: Request, response: Response, next: NextFunction) {
+        // Get token from request header
+        const authHeader = request.headers['authorization'] as string
+        if (!authHeader || authHeader.trim().length === 0) {
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Authorization header is not provided');
+        }
+        // The request header contains the token "Bearer <token>", split the string and use the second value in the split array.
+        const token = authHeader.split(" ")[1]
+        if (!token || token.trim().length === 0) {
+            throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Access Token isn\'t provided');
+        }
+        // Verify token with secret
+        jwt.verify(token, '3e9af42de397cfc9387a06972c28c23a1ac7e9a60fb6dc1f05295bc6057baf500672d4a13db5d04ea84bbc4c5679164a7723f3d49f516bb73dc3df6e3b768c8e', (error, user) => {  // TODO replace with process.env.ACCESS_TOKEN_SECRET
+            if (error) {
+                throw new APIError('FORBIDDEN', HttpStatusCode.FORBIDDEN, true, 'The access token is invalid');
+            } else {
+                next()
+            }
+        })
+    }
+
+    /**
      * Generate JWT Access Token
      * TIP: require("ACCESS_TOKEN_SECRET").randomBytes(64).toString("hex")
      * @param user username for the current user
@@ -113,7 +138,7 @@ export class UserService {
         return jwt.sign(user, '3e9af42de397cfc9387a06972c28c23a1ac7e9a60fb6dc1f05295bc6057baf500672d4a13db5d04ea84bbc4c5679164a7723f3d49f516bb73dc3df6e3b768c8e', {expiresIn: "15m"}) // process.env.ACCESS_TOKEN_SECRET
     }
 
-    /***
+    /**
      * Generate JWT Refresh Token
      * TIP: require("REFRESH_TOKEN_SECRET").randomBytes(64).toString("hex")
      * @param user username for the current user

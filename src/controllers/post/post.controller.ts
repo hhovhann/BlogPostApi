@@ -1,10 +1,11 @@
 import {NextFunction, Request, Response, Router} from "express";
 import {PostService} from "../../services/post/post.service";
+import {UserService} from "../../services/user/user.service";
 
 export class PostController {
     public router = Router();
 
-    constructor(private postService: PostService) {
+    constructor(private postService: PostService, private userService: UserService) {
         this.setRoutes();
     }
 
@@ -12,9 +13,9 @@ export class PostController {
         this.router.route("/").get(this.findAll);
         this.router.route("/:id").get(this.findById)
         this.router.route("/search/:key").get(this.search);
-        this.router.route("/").post(this.create);
-        this.router.route("/").put(this.update);
-        this.router.route("/:id").delete(this.delete).put(this.update);
+        this.router.route("/").post(this.userService.validateToken, this.create);
+        this.router.route("/").put(this.userService.validateToken, this.update);
+        this.router.route("/:id").delete(this.userService.validateToken, this.delete).put(this.update);
     }
 
     private search = async (request: Request, response: Response, next: NextFunction) => {
