@@ -30,18 +30,15 @@ export class PostService {
      * **/
     public find(limit: number, page: number): Promise<IPost[]> {
         return Post.find()
-            // We multiply the "limit" variables by one just to make sure we pass a number and not a string
-            .limit(limit)
-            // I don't think i need to explain the math here
+            .limit(limit as number)
             .skip((page - 1) * limit)
-            // We sort the data by the date of their creation in descending order (user 1 instead of -1 to get ascending order)
-            .sort({"createdAt": -1, "title": -1}).exec();
+            .sort({"createdAt": 1, "title": 1}).exec();
     }
 
     /**
      * Add new post
      * **/
-    public add(post: IPost): Promise<IPost> {
+    public create(post: IPost): Promise<IPost> {
         // Validate title and content fields
         if (!post.title) {
             throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Title is mandatory');

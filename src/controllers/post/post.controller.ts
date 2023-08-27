@@ -35,7 +35,7 @@ export class PostController {
 
     private create = async (request: Request, response: Response, next: NextFunction) => {
         try {
-            const addPostResult = await this.postService.add(request.body);
+            const addPostResult = await this.postService.create(request.body);
             response.send(addPostResult);
         } catch (error) {
             next(error);

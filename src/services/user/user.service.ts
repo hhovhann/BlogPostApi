@@ -5,8 +5,14 @@ import {HttpStatusCode} from "../../enums/http.statuses";
 import jwt from 'jsonwebtoken';
 import {NextFunction, Request, Response} from "express";
 
+const dotenv = require('dotenv');
+dotenv.config()
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string;
+const REFRESH_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string;
+
 const bcrypt = require('bcrypt');
 let refreshTokens = [] as string[]; // can use Redis cash for this reason
+
 
 export class UserService {
 
@@ -31,7 +37,7 @@ export class UserService {
             throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Role is mandatory');
         }
 
-        const password = await bcrypt.hash(user.password, 10); //process.env.SALT
+        const password = await bcrypt.hash(user.password, 10);
         const newUser = new User({
             username: user.username,
             email: user.email,
@@ -120,7 +126,7 @@ export class UserService {
             throw new APIError('BAD REQUEST', HttpStatusCode.BAD_REQUEST, true, 'Access Token isn\'t provided');
         }
         // Verify token with secret
-        jwt.verify(token, '3e9af42de397cfc9387a06972c28c23a1ac7e9a60fb6dc1f05295bc6057baf500672d4a13db5d04ea84bbc4c5679164a7723f3d49f516bb73dc3df6e3b768c8e', (error, user) => {  // TODO replace with process.env.ACCESS_TOKEN_SECRET
+        jwt.verify(token, ACCESS_TOKEN_SECRET, (error, user) => {
             if (error) {
                 throw new APIError('FORBIDDEN', HttpStatusCode.FORBIDDEN, true, 'The access token is invalid');
             } else {
@@ -135,7 +141,7 @@ export class UserService {
      * @param user username for the current user
      */
     private generateAccessToken(user: any) {
-        return jwt.sign(user, '3e9af42de397cfc9387a06972c28c23a1ac7e9a60fb6dc1f05295bc6057baf500672d4a13db5d04ea84bbc4c5679164a7723f3d49f516bb73dc3df6e3b768c8e', {expiresIn: "15m"}) // process.env.ACCESS_TOKEN_SECRET
+        return jwt.sign(user, ACCESS_TOKEN_SECRET, {expiresIn: "15m"})
     }
 
     /**
@@ -144,6 +150,6 @@ export class UserService {
      * @param user username for the current user
      */
     private generateRefreshToken(user: any) {
-        return jwt.sign(user, '56a6d157ad7d2ee09e480960ae857e528ae546d156f47433b1afad162311c45aa520697b65d13a5c72891f6145ab1f2675886fc124027dc95f86073dd8fe1462', {expiresIn: "20m"}) // process.env.REFRESH_TOKEN_SECRET
+        return jwt.sign(user, REFRESH_TOKEN_SECRET, {expiresIn: "20m"})
     }
 }

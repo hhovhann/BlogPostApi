@@ -1,4 +1,3 @@
-import {MONGO} from "./constants/post/post.constants";
 import {PostController} from "./controllers/post/post.controller";
 import {UserController} from "./controllers/user/user.controller";
 import {PostService} from "./services/post/post.service";
@@ -8,6 +7,11 @@ import cors from "cors";
 import express from "express";
 import {handleErrors} from "./middleware/error-handler.middleware";
 import mongoose from "mongoose";
+
+const dotenv = require('dotenv');
+dotenv.config()
+
+const uri = process.env.MONGO_DATABASE_URL as string
 
 class App {
     public app: express.Application;
@@ -29,7 +33,7 @@ class App {
     private setMongoConfig() {
         mongoose.Promise = global.Promise;
         mongoose
-            .connect(MONGO.url)
+            .connect(uri)
             .then(response => response.set("toJSON", {
                 virtuals: true,
                 transform: (_: any, converted: any) => {
