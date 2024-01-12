@@ -206,6 +206,6 @@ Blog Post API is a post management demonstration application with CRUD functiona
 
 ### Nice to have
 
-- Pagination: Could use (mongoose-paginate-v2)[https://www.npmjs.com/package/mongoose-paginate-v2] library
+- Pagination: Could use [mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2) library
 - Tests: could be added more tests with nodejs testcontainers
 - Caching: Increase the performance find all, add token storage
